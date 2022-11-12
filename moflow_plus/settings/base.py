@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "django_countries",
     "core",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -31,7 +32,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "moflow+.urls"
+ROOT_URLCONF = "moflow_plus.urls"
 
 TEMPLATES = [
     {
@@ -51,7 +52,7 @@ TEMPLATES = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-WSGI_APPLICATION = "moflow+.wsgi.application"
+WSGI_APPLICATION = "moflow_plus.wsgi.application"
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
@@ -75,6 +76,7 @@ AUTHENTICATION_BACKENDS = (
 )
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
+AUTH_USER_MODEL = 'core.User'
 
 # CRISPY FORMS
 
