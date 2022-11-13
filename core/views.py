@@ -20,7 +20,10 @@ class HomeView(View):
         form = GenerateForm(self.request.GET or None)
         context = {"form": form}
         if form.is_valid():
+            # 여기서 moflow 함수 실행
+            random_molecular = [(''.join(random.choice(string.ascii_letters.capitalize()) for _ in range(10))) for _ in range(10)]
             context['data'] = form.cleaned_data
+            context['molecular_list'] = random_molecular[:5]
         return render(self.request, "home.html", context)
 
 
@@ -40,7 +43,7 @@ class CompareView(View):
         pass
 
 
-class SaveListView(View):
+class SavedListView(View):
     def get(self, *args, **kwargs):
         pass
 

@@ -4,14 +4,19 @@
 {% block content %}
   <main>
     <div class="container">
-      
+
       <form action='{% url "core:home" %}', method="get">
         {{ form|crispy }}
         <button type="submit">Generate</button>
       </form>
       {% if data %}
         <p>You search: {{data.keyword}}</p>
-
+        <p>임의로 추출한 분자식</p>
+        <ul>
+          {% for molecular in molecular_list %}
+            <li>{{molecular|upper}}</li>
+          {% endfor %}
+        </ul>
       {% endif %}
       
       
