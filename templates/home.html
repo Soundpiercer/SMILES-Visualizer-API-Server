@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <main>
+    <div class="container">
+      
+      <form action='{% url "core:home" %}', method="get">
+        {{ form|crispy }}
+        <button type="submit">Generate</button>
+      </form>
+      {% if data %}
+        <p>You search: {{data.keyword}}</p>
+
+      {% endif %}
+      
+      
+
+    </div>
+  </main>
+
+{% endblock content %}
+
+
