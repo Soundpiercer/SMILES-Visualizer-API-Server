@@ -27,9 +27,11 @@ class HomeView(View):
         return render(self.request, "home.html", context)
 
 
-class DetailView(DetailView):
+class DetailView(View):
     def get(self, *args, **kwargs):
-        pass
+        molecular = kwargs['id']    
+        context = {"id": molecular}
+        return render(self.request, "detail.html", context)
 
     def post(self, *args, **kwargs):
         pass
@@ -37,7 +39,7 @@ class DetailView(DetailView):
 
 class CompareView(View):
     def get(self, *args, **kwargs):
-        pass
+        return render(self.request, 'compare.html')
 
     def post(self, *args, **kwargs):
         pass
@@ -45,7 +47,7 @@ class CompareView(View):
 
 class SavedListView(View):
     def get(self, *args, **kwargs):
-        pass
+        return render(self.request, "savedList.html")
 
     def post(self, *args, **kwargs):
         pass

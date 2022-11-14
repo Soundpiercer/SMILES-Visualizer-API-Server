@@ -1,1 +1,8 @@
 <h1>Moflow+</h1>
+
+{% if request.user.is_authenticated %}
+<a href="{% url 'account_logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'account_login'} %">Login</a>
+<a href="{% url 'account_signup' %}">Signup</a>
+{% endif %}

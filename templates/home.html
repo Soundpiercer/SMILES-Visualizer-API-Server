@@ -14,7 +14,7 @@
         <p>임의로 추출한 분자식</p>
         <ul>
           {% for molecular in molecular_list %}
-            <li>{{molecular|upper}}</li>
+            <li><a href="{% url 'core:detail' id=molecular %}">{{molecular|upper}}</a></li>
           {% endfor %}
         </ul>
       {% endif %}

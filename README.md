@@ -46,3 +46,12 @@ core directory 아래에 있는 파일에 대한 간략한 설명
 ## static_in_env
 
     css, js, image, font 등
+
+# TODO
+- [x] User login
+- [x] User signup
+- [ ] detail에 표시될 분자식에 대한 정보는 어떻게 저장하며 처리할 것인지
+- [ ] save as a file은 unity에서 할 수 있나?
+- [ ] 평소에는 그냥 검색할 수 있다가 Save 기능을 사용하기 위해서 or Saved list로 들어가기 위해서는 login required
+- [ ] compare 버튼을 누르면 compare algorithm 실행 R&D 중인 algorithm 호출
+- [ ] login 하라는 warning 띄어주기
