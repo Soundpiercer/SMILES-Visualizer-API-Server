@@ -5,6 +5,12 @@
     <div class="container">
 
       <h2>{{id}}</h2>
+
+      <form action="{% url 'core:save-to-list' formula=id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name='mybtn2' value={{id}}>Save</button>
+      </form>
+      <button>Save as file</button>
       
     </div>
   </main>

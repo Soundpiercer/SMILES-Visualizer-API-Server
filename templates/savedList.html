@@ -5,6 +5,12 @@
     <div class="container">
 
       <h2>Saved list page</h2>
+      {% if moleculars %}
+      {% for molecular in moleculars%}
+          <li><a href="{% url 'core:detail' id=molecular %}">{{molecular|upper}}</a></li>
+      {% endfor %}
+
+      {% endif %}
       
     </div>
   </main>

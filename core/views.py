@@ -49,9 +49,24 @@ class CompareView(View):
         pass
 
 
-class SavedListView(View):
+class SavedListView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
-        return render(self.request, "savedList.html")
+        try:
+            moles = Molecular.objects.get(user=self.request.user)
+            context = {"moleculars": moles}
+            return render(self.request, "savedList.html", context)
+
+        except ObjectDoesNotExist:
+            return render(self.request, "savedList.html") 
 
     def post(self, *args, **kwargs):
         pass
+
+@login_required
+def save_to_list(request, formula):
+    mole, created = Molecular.objects.get_or_create(formula=formula, user=request.user)
+    if not created:
+        messages.warning(request, "Already saved!")
+    else:
+        mole.save()
+    return redirect('core:detail', id=formula)

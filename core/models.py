@@ -17,7 +17,12 @@ class Molecular(models.Model):
     formula = models.CharField(max_length=100)
     structure = models.CharField(max_length=50, blank=True, null=True)
     other_info = models.CharField(max_length=200, blank=True, null=True)
-    users = models.ManyToManyField(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.formula
+
+    def get_save_to_list_url(self):
+        return reverse("core:save-to-list", kwargs={
+            'formula': self.formula
+        })
