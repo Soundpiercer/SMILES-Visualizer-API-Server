@@ -6,7 +6,8 @@ class GenerateForm(forms.Form):
 
 
 class CompareForm(forms.Form):
-    pass
+    mole1 = forms.CharField(required=True, max_length=50)
+    mole2 = forms.CharField(required=True, max_length=50)
 
 
 class SavedListForm(forms.Form):

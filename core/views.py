@@ -11,7 +11,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, View
 
-from .forms import GenerateForm
+from .forms import GenerateForm, CompareForm
 from .models import User, Molecular
 
 
@@ -39,7 +39,11 @@ class DetailView(View):
 
 class CompareView(View):
     def get(self, *args, **kwargs):
-        return render(self.request, 'compare.html')
+        form = CompareForm(self.request.GET or None)
+        context = {"form": form}
+        if form.is_valid():
+            context['data'] = form.cleaned_data
+        return render(self.request, "compare.html", context)
 
     def post(self, *args, **kwargs):
         pass
