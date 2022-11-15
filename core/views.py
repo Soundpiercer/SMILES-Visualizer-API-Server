@@ -52,7 +52,7 @@ class CompareView(View):
 class SavedListView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
-            moles = Molecular.objects.get(user=self.request.user)
+            moles = Molecular.objects.filter(user=self.request.user)
             context = {"moleculars": moles}
             return render(self.request, "savedList.html", context)
 
