@@ -4,9 +4,11 @@ from .models import Molecular
 
 
 class MolecularSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source="owner.username")
+
     class Meta:
         model = Molecular
-        fields = ["id", "formula", "effect", "others"]
+        fields = ["owner", "id", "formula", "effect", "others"]
 
 
 class UserSerializer(serializers.ModelSerializer):

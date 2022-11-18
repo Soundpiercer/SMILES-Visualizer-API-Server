@@ -3,23 +3,29 @@ from .serializers import MolecularSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import generics
 from rest_framework import status
+from rest_framework import permissions
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 
 
 class MolecularList(APIView):
     """
-    List all snippets, or create a new molecular.
+    List all moleculars, or create a new molecular.
     """
 
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get(self, request, format=None):
-        snippets = Molecular.objects.all()
-        serializer = MolecularSerializer(snippets, many=True)
+        moleculars = Molecular.objects.all()
+        serializer = MolecularSerializer(moleculars, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = MolecularSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=self.request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -52,3 +58,13 @@ class MolecularDetail(APIView):
         molecular = self.get_object(pk)
         molecular.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
