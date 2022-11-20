@@ -3,11 +3,25 @@ from .serializers import MolecularSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework import generics
 from rest_framework import status
 from rest_framework import permissions
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
+from .permissions import IsOwnerOrReadOnly
+
+
+# @api_view(["GET"])
+# def api_root(request, format=None):
+#     return Response(
+#         {
+#             "users": reverse("user-list", request=request, format=format),
+#             "moleculars": reverse("molecular-list", request=request, format=format),
+#         }
+#     )
 
 
 class MolecularList(APIView):
@@ -15,7 +29,7 @@ class MolecularList(APIView):
     List all moleculars, or create a new molecular.
     """
 
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         moleculars = Molecular.objects.all()
@@ -34,6 +48,8 @@ class MolecularDetail(APIView):
     """
     Retrieve, update or delete a molecular instance.
     """
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def get_object(self, pk):
         try:
