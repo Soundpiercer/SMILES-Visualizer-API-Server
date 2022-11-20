@@ -6,22 +6,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from rest_framework import generics
 from rest_framework import status
 from rest_framework import permissions
-from django.contrib.auth.models import User
-from .serializers import UserSerializer
 from .permissions import IsOwnerOrReadOnly
-
-
-# @api_view(["GET"])
-# def api_root(request, format=None):
-#     return Response(
-#         {
-#             "users": reverse("user-list", request=request, format=format),
-#             "moleculars": reverse("molecular-list", request=request, format=format),
-#         }
-#     )
 
 
 class MolecularList(APIView):
@@ -32,7 +19,7 @@ class MolecularList(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
-        moleculars = Molecular.objects.all()
+        moleculars = Molecular.objects.filter(owner=self.request.user)
         serializer = MolecularSerializer(moleculars, many=True)
         return Response(serializer.data)
 
@@ -74,13 +61,3 @@ class MolecularDetail(APIView):
         molecular = self.get_object(pk)
         molecular.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class UserDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer

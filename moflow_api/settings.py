@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "api",
     "mole",
+    "account",
 ]
+
+AUTH_USER_MODEL = "account.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
