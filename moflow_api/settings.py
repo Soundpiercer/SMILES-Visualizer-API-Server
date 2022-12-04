@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "api",
     "mole",
     "account",
+    "moflow"
 ]
 
 AUTH_USER_MODEL = "account.User"
